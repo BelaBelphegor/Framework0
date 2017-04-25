@@ -2,20 +2,20 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    AccountController.php                              :+:      :+:    :+:    #
+#    GameController.php                                 :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: tiboitel <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/04/18 19:10:23 by tiboitel          #+#    #+#              #
-#    Updated: 2017/04/18 19:10:23 by tiboitel         ###   ########.fr        #
+#    Created: 2017/04/25 22:55:26 by tiboitel          #+#    #+#              #
+#    Updated: 2017/04/25 22:55:26 by tiboitel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-class AccountController
+class GameController
 {
-	static public function	executeIndex()
+	static public function executeIndex()
 	{
-		return (html('account/signin.html.php'));
+		return (html('game/show.html.php'));
 	}
 }
 ?>

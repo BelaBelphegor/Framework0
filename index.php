@@ -10,9 +10,11 @@
 #    Updated: 2017/04/14 22:12:35 by tiboitel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once 'lib/limonade.php';
-require_once 'vendor/autoload.php';
 
 spl_autoload_register(function($name)
 	{
@@ -39,7 +41,6 @@ function configure()
 	option('env', $env);
 	option('base_uri', '/');
 	setlocale(LC_TIME, "fr_FR");
-	//option('managers', new Managers("FDB", FlatFile::open('vendors/FlatFileDb/db/Federation.qbm')));
 };
 
 function before()
@@ -50,5 +51,6 @@ function before()
 dispatch('/', array('LandController', 'executeIndex'));
 dispatch('/contact', array('ContactController', 'executeIndex'));
 dispatch('/media', array('MediaController', 'executeIndex'));
+dispatch('/game', array('GameController', 'executeIndex'));
 run();
 ?>
