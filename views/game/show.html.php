@@ -21,7 +21,8 @@
 				</h1>
 				<p class="lead section-lead">Faites battre le coeur de votre peuple !</p>
 				<p class="section-paragraph">
-					<canvas id="federation-game">
+					<canvas id="federation-game" width="480" height="320" style="background: #eee; display: block; margin 0 auto; border 1px thin black;">
+						Votre navigateur n'est pas compatible avec HTML 5.
 					</canvas>
 				</p>
 			</div>

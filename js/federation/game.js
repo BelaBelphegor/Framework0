@@ -12,5 +12,26 @@ window.onload = function()
 		console.log("Unable to get ctx html element.");
 		return ;
 	}
-	ctx.fillRect(100, 100, 100, 100);
+
+	var	x = canvas.width / 2;
+	var y = canvas.height / 2;
+
+	function drawBall(x, y)
+	{
+		ctx.beginPath();
+		ctx.arc(50, 50, 10, 0, Math.PI*2, false);
+		ctx.fillStyle = "green";
+		ctx.fill();
+		ctx.closePath();
+	}
+
+	function render()
+	{
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		drawBall(x, y);
+		alert("js");
+	//	x++;
+	//	y++;
+	}
+	setInterval(render, 1000 / 60);
 }
