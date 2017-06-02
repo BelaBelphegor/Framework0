@@ -1,79 +1,3 @@
-var Inputter = function()
-{
-	var self = this;
-	this.keyDownState = {};
-	this.keyPressedState = {};
-}
-
-Inputter.prototype = 
-{
-	update: function()
-	{
-		for (var i in this.keyPressedState)
-		{
-			if (this.keyPressedState[i] === true)
-				this.keyPressedState[i] = false;
-		}
-	},
-
-	onKeyDown: function(e)
-	{
-		this.keyDownState[e.keyCode] = true;
-		if (this.keyPressedState[e.keyCode] === undefined)
-			this.keyPressedState[e.keyCode] = true;
-	},
-
-	onKeyUp: function(e)
-	{
-		this.keyDownState[e.keyCode] = false;
-		if (this.keyPressedState[e.keyCode] === false)
-			this.keyPressedState[e.keyCode] = undefined;
-	},
-
-	isDown: function(keycode)
-	{
-		return this.keyDownState[keycode] || false;
-	},
-
-	isPressed: function(keycode)
-	{
-		return this.keyPressedState[keycode] || false;
-	}
-};
-
-var Collider = function()
-{
-	this.collide = function(a, b)
-	{
-		if (a === undefined || b === undefined)
-			return (false);
-		if ((a.x >= b.x + b.width) ||
-			   	(a.x + a.width <= b.x) ||
-					(a.y >= b.y + b.height) ||
-				   		(a.y + a.height <= b.y))
-			return (false);
-		return (true);
-	}
-}
-
-var Renderer = function(canvas, ctx)
-{
-	this.canvas = canvas;
-	this.ctx = ctx;
-	this.width = canvas.width;
-	this.height = canvas.height;
-}
-
-Renderer.prototype.clear = function()
-{
-	this.ctx.clearRect(0, 0, this.width, this.height);
-}
-
-Renderer.prototype.render = function(object)
-{
-	object.draw(this.ctx);
-}
-
 var Ennemy = function(x, y)
 {
 	this.x = x;
@@ -175,9 +99,7 @@ var Game = function(canvas, context)
 {
 	this.canvas = canvas;
 	this.ctx = context;
-	this.renderer = new Renderer(this.canvas, this.ctx);
-	this.inputter = new Inputter();
-	this.collider = new Collider();
+	this.engine = new Engine(this, 'federation-game');
 	this.player = new Ship();
 	this.UI = new UI(this.player);
 	this.entities = [];
@@ -193,13 +115,12 @@ var Game = function(canvas, context)
 
 Game.prototype.initialisation = function()
 {
-	document.addEventListener("keydown", this.inputter.onKeyDown.bind(this.inputter), false);
-	document.addEventListener("keyup", this.inputter.onKeyUp.bind(this.inputter), false);	
+	document.addEventListener("keydown", this.engine.inputter.onKeyDown.bind(this.engine.inputter), false);
+	document.addEventListener("keyup", this.engine.inputter.onKeyUp.bind(this.engine.inputter), false);	
 	this.player.setPosition((this.canvas.width - this.player.width) / 2, this.canvas.height - this.player.height - 10);
-	setInterval(this.run.bind(this), 1000 / 60);
 }
 
-Game.prototype.update = function()
+Game.prototype.update = function(interval)
 {
 	var timeSinceLastShoot = this.frames % 60;
 
@@ -284,19 +205,18 @@ Game.prototype.reset = function()
 
 window.onload = function()
 {
-	var canvas = document.getElementById('federation-game');
-
+	let canvas = document.getElementById('federation-game');;
 	if (!canvas)
 	{
 		console.log("Unable to get canvas html element.");
 		return ;
 	}
-	var ctx = canvas.getContext('2d');
+	let ctx = canvas.getContext('2d');
 	if (!ctx)
 	{
 		console.log("Unable to get ctx html element.");
 		return ;
 	}
-	var game = new Game(canvas, ctx);
+	let  game = new Game(canvas, ctx);
 	game.initialisation();
 }
