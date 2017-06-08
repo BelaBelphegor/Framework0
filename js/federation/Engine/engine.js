@@ -8,8 +8,9 @@ class Engine
 		this.inputter = new Inputter();
 		this.collider = new Collider();
 		this.ticker = new Ticker(this, function(interval) {
-					if (game.update !== undefined)
-						game.update(interval);
+					if (game.run !== undefined)
+						game.run(interval);
+					this.engine.inputter.update();
 				});
 		this.ticker.start();
 	}
